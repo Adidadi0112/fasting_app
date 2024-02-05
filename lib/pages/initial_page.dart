@@ -1,4 +1,4 @@
-import 'package:fasting_app/pages/home.dart';
+import 'package:fasting_app/widgets/fasting_type_card.dart';
 import 'package:flutter/material.dart';
 
 class InitPage extends StatelessWidget {
@@ -9,32 +9,26 @@ class InitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.only(top: 100.0),
-          child: Center(
-            child: Column(
-                  children: [
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(
-                  ),
-                ),
-              ),
-              child: const Text('5'),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(
-                  ),
-                ),
-              ),
-              child: const Text('10'),
-            ),
-                  ],
-                ),
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            "Rozpocznij post!",
+            style: TextStyle(color: Colors.white),
           ),
-        ));
+        ),
+        backgroundColor: Colors.black,
+      ),
+      body: const Center(
+        child: Column(
+          children: [
+            SizedBox(height: 15),
+            FastingTypeCard(fastingType: 12),
+            FastingTypeCard(fastingType: 14),
+            FastingTypeCard(fastingType: 16),
+            FastingTypeCard(fastingType: 20),
+          ],
+        ),
+      ),
+    );
   }
 }
