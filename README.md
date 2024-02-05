@@ -1,16 +1,17 @@
-# fasting_app
 
-A new Flutter project.
+# Minimalist fasting tracker
 
-## Getting Started
+The app aims to count the time of the fasting and the eating window. There are many such apps on the market saturated with adverts and unnecessary content. Therefore, with this app, special emphasis was placed on a minimalist UI.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Choice of fasting
+
+![App Screenshot](https://github.com/Adidadi0112/fasting_app/blob/master/example/fasting_choice.jpg)
+
+## Stopwatch
+
+![App Screenshot](https://github.com/Adidadi0112/fasting_app/blob/master/example/fasting_stopwatch.jpg)
+
+
