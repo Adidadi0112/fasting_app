@@ -7,11 +7,10 @@ The app aims to count the time of the fasting and the eating window. There are m
 
 
 ## Choice of fasting
-<img src="(https://github.com/Adidadi0112/fasting_app/blob/master/example/fasting_choice.jpg" alt="Tekst zastępczy" width="50%">
-![App Screenshot](https://github.com/Adidadi0112/fasting_app/blob/master/example/fasting_choice.jpg)
+<img src="/example/fasting_choice.jpg" width="300" height="650">
 
 ## Stopwatch
+<img src="/example/fasting_stopwatch.jpg" width="300" height="650">
 
-![App Screenshot](https://github.com/Adidadi0112/fasting_app/blob/master/example/fasting_stopwatch.jpg)
 
 
