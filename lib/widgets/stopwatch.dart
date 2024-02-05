@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:fasting_app/pages/initial_page.dart';
 import 'package:flutter/material.dart';
 
 class Stoper extends StatefulWidget {
@@ -13,14 +12,32 @@ class Stoper extends StatefulWidget {
 
 class _StoperState extends State<Stoper> {
   late Stopwatch _stopwatch;
-  late Timer _timer;
-
+  late Timer _timer; 
+  bool isFasting = true;
 
   @override
   void initState() {
     super.initState();
     _stopwatch = Stopwatch();
+    _stopwatch.start();
+    _startTimer();
+    _checkStoperCompletion();
   }
+
+  void _checkStoperCompletion() {
+  Timer.periodic(Duration(seconds: 1), (timer) {
+    if (_stopwatch.elapsed.inSeconds >= widget.fastingDuration * 60 * 60) {
+      isFasting = false;
+      _stopwatch.reset();     
+    }
+    if(!isFasting) {
+      if (_stopwatch.elapsed.inSeconds >= 24 * 60 * 60 - widget.fastingDuration * 60 * 60) { 
+      _stopwatch.stop();
+      timer.cancel(); 
+      }
+    }
+  });
+}
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -31,16 +48,15 @@ class _StoperState extends State<Stoper> {
 
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     final elapsedTimeInSeconds = _stopwatch.elapsed.inSeconds;
-    final totalDurationInSeconds =
-        widget.fastingDuration * 60 * 60; 
+    final totalDurationInSeconds = widget.fastingDuration * 60 * 60;
+    final eatingDuration = 24 * 60 * 60 - totalDurationInSeconds;
 
     final percentageElapsed =
-        (elapsedTimeInSeconds / totalDurationInSeconds) * 100;
+        (elapsedTimeInSeconds / (isFasting ? totalDurationInSeconds : eatingDuration)) * 100;
 
     final time =
         '${_stopwatch.elapsed.inHours.toString().padLeft(2, '0')}:${(_stopwatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(_stopwatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
@@ -54,7 +70,7 @@ class _StoperState extends State<Stoper> {
           child: CircularProgressIndicator(
             value: percentageElapsed / 100,
             backgroundColor: Colors.grey,
-            color: Colors.deepPurple,
+            color: Colors.black,
             strokeWidth: 10,
           ),
         ),
@@ -63,40 +79,12 @@ class _StoperState extends State<Stoper> {
           radius: 150,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: <Widget>[
-                  Text(time, style: TextStyle(fontSize: 40)),
-                  Text('${percentageElapsed.toStringAsFixed(1)}%'),
-                  IconButton(
-                    onPressed: () {
-                      if (_stopwatch.isRunning) {
-                        _stopwatch.stop();
-                        _stopwatch.reset();
-                        setState(() {});
-                      } else {
-                        _stopwatch.start();
-                        _startTimer();
-                      }
-                    },
-                    iconSize: 40,
-                    icon: Icon(
-                        _stopwatch.isRunning ? Icons.stop : Icons.play_arrow),
-                  ),
-                ],
-              ),
+            children: <Widget>[
+              isFasting ? const Icon(Icons.timer_outlined, size: 50) : const Icon(Icons.fastfood_outlined, size: 50),
+              Text(time, style: const TextStyle(fontSize: 40)),
+              Text('${percentageElapsed.toStringAsFixed(1)}%'),
+              const SizedBox(height: 30)
             ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: height * 0.1, left: width * 0.50),
-          child: IconButton(
-            icon: const Icon(Icons.change_circle, size: 30),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const InitPage(),
-              ),
-            ),
           ),
         ),
       ],
